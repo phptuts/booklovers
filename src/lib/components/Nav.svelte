@@ -1,5 +1,9 @@
 <script>
 	let isLoggedIn = false;
+	let isOpen = false;
+	function toggleMenu() {
+		isOpen = !isOpen;
+	}
 </script>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -13,10 +17,11 @@
 			aria-controls="navbarNav"
 			aria-expanded="false"
 			aria-label="Toggle navigation"
+			on:click={toggleMenu}
 		>
 			<span class="navbar-toggler-icon" />
 		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
+		<div class:show={isOpen} class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
 				{#if isLoggedIn}
 					<li class="nav-item">
