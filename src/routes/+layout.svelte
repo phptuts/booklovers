@@ -2,6 +2,7 @@
 	import 'bootstrap/dist/css/bootstrap.min.css';
 	import Nav from '$lib/components/Nav.svelte';
 	import messagesStore from '$lib/stores/messages.store';
+	import '$lib/firebase/firebase.client';
 
 	function closeMessage() {
 		messagesStore.hide();
