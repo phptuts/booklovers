@@ -1,5 +1,6 @@
 <script>
-	let isLoggedIn = false;
+	import { page } from '$app/stores';
+	let isLoggedIn = true;
 	let isOpen = false;
 	function toggleMenu() {
 		isOpen = !isOpen;
@@ -24,34 +25,55 @@
 		<div class:show={isOpen} class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
 				{#if isLoggedIn}
-					<li class="nav-item">
-						<a class="nav-link" aria-current="page" href="/">Home</a>
+					<li class="nav-item ">
+						<a
+							class:active={$page.url.pathname === '/'}
+							class="nav-link"
+							aria-current="page"
+							href="/">Home</a
+						>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/add">Add Book</a>
+						<a class:active={$page.url.pathname === '/add'} class="nav-link" href="/add">Add Book</a
+						>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/profile">Profile</a>
+						<a class:active={$page.url.pathname === '/profile'} class="nav-link" href="/profile"
+							>Profile</a
+						>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/about">About</a>
+						<a class:active={$page.url.pathname === '/about'} class="nav-link" href="/about"
+							>About</a
+						>
 					</li>
 					<li class="nav-item">
 						<span class="nav-link">Logout</span>
 					</li>
 				{:else}
 					<li class="nav-item">
-						<a class="nav-link" aria-current="page" href="/">Home</a>
+						<a
+							class:active={$page.url.pathname === '/'}
+							class="nav-link"
+							aria-current="page"
+							href="/">Home</a
+						>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/about">About</a>
+						<a class:active={$page.url.pathname === '/about'} class="nav-link" href="/about"
+							>About</a
+						>
 					</li>
 
 					<li class="nav-item">
-						<a class="nav-link" href="/login">Login</a>
+						<a class:active={$page.url.pathname === '/login'} class="nav-link" href="/login"
+							>Login</a
+						>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/signup">Sign Up</a>
+						<a class:active={$page.url.pathname === '/signin'} class="nav-link" href="/signup"
+							>Sign Up</a
+						>
 					</li>
 				{/if}
 			</ul>
