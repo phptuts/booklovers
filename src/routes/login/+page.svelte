@@ -3,12 +3,15 @@
 	import AuthForm from '$lib/components/Auth/AuthForm.svelte';
 	import { loginWithEmailandPassword } from '$lib/firebase/auth.client';
 	import messagesStore from '$lib/stores/messages.store';
+	import { afterLogin } from '$lib/helpers/route.helper';
+	import { page } from '$app/stores';
 	async function onLogin(e) {
 		try {
 			const formData = new FormData(e.target);
 			const email = formData.get('email');
 			const password = formData.get('password');
 			const user = await loginWithEmailandPassword(email, password);
+			await afterLogin($page.url);
 		} catch (error) {
 			if (
 				['auth/invalid-email', 'auth/user-not-found', 'auth/wrong-password'].includes(error.code)

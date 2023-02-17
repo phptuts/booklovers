@@ -4,6 +4,9 @@
 	import LoginWithGoogle from '$lib/components/Auth/LoginWithGoogle.svelte';
 	import { registerWithEmailandPassword } from '$lib/firebase/auth.client';
 	import messagesStore from '$lib/stores/messages.store';
+	import { page } from '$app/stores';
+	import { afterLogin } from '$lib/helpers/route.helper';
+
 	async function register(e) {
 		try {
 			const formData = new FormData(e.target);
@@ -20,6 +23,7 @@
 			}
 
 			const user = await registerWithEmailandPassword(email, password);
+			afterLogin($page.url);
 		} catch (e) {
 			if (e.code === 'auth/email-already-in-use') {
 				messagesStore.showError('You have already registered, please log in.');
