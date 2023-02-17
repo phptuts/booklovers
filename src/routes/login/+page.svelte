@@ -30,6 +30,12 @@
 <AuthForm on:submit={onLogin} btnName="Login" />
 <hr />
 <LoginWithGoogle />
+<hr />
+<div class="row">
+	<div class="col">
+		<a href="/forgot-password" class="btn btn-warning w-100">Forgot Password</a>
+	</div>
+</div>
 
 <svelte:head>
 	<title>Book Lovers - Login</title>
