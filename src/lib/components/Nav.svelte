@@ -1,10 +1,23 @@
 <script>
 	import { page } from '$app/stores';
 	import authStore from '$lib/stores/auth.store';
+	import { logout } from '$lib/firebase/auth.client';
+	import messagesStore from '$lib/stores/messages.store';
+	import { goto } from '$app/navigation';
 
 	let isOpen = false;
 	function toggleMenu() {
 		isOpen = !isOpen;
+	}
+
+	async function onLogout() {
+		try {
+			await logout();
+			goto('/');
+		} catch (e) {
+			console.log(e);
+			messagesStore.showError();
+		}
 	}
 </script>
 
@@ -49,7 +62,7 @@
 						>
 					</li>
 					<li class="nav-item">
-						<span class="nav-link">Logout</span>
+						<span on:click={onLogout} class="nav-link">Logout</span>
 					</li>
 				{:else}
 					<li class="nav-item">
