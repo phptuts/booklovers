@@ -8,6 +8,7 @@ export async function loginWithGoogle() {
 
 export async function logout() {
     await signOut(getAuth());
+    await fetch('/logout')
 }
 
 export async function registerWithEmailandPassword(email, password) {
@@ -39,10 +40,3 @@ export async function sendJWTToken() {
     })
 }
 
-/**
- * In the auth auth.client.js file create a function named sendJWTToken.
-
-It should send the jwt token and email to the token endpoint you created.
-
-Call that function in the afterLogin Event so that it will be called after we login or register with the app.
- */
