@@ -3,6 +3,35 @@
 	import Nav from '$lib/components/Nav.svelte';
 	import messagesStore from '$lib/stores/messages.store';
 	import '$lib/firebase/firebase.client';
+	import { onMount } from 'svelte';
+	import { sendJWTToken } from '$lib/firebase/auth.client';
+
+	let timerId;
+	async function sendServerToken() {
+		try {
+			await sendJWTToken();
+		} catch (error) {
+			clearInterval(timerId);
+			messagesStore.showError();
+			console.log(error);
+		}
+	}
+
+	onMount(async () => {
+		try {
+			await sendServerToken();
+			timerId = setInterval(async () => {
+				await sendServerToken();
+			}, 1000 * 10 * 60);
+		} catch (e) {
+			console.log(e);
+			messagesStore.showError();
+		}
+
+		return () => {
+			clearInterval(timerId);
+		};
+	});
 
 	function closeMessage() {
 		messagesStore.hide();
