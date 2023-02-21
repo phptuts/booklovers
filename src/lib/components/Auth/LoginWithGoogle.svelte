@@ -7,7 +7,7 @@
 	async function loginGoogle() {
 		try {
 			const user = await loginWithGoogle();
-			await afterLogin($page.url);
+			await afterLogin($page.url, user.uid);
 		} catch (e) {
 			if (e.code === 'auth/popup-closed-by-user') {
 				return;

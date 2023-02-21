@@ -11,7 +11,7 @@
 			const email = formData.get('email');
 			const password = formData.get('password');
 			const user = await loginWithEmailandPassword(email, password);
-			await afterLogin($page.url);
+			await afterLogin($page.url, user.uid);
 		} catch (error) {
 			if (
 				['auth/invalid-email', 'auth/user-not-found', 'auth/wrong-password'].includes(error.code)
