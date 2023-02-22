@@ -18,7 +18,7 @@
 
 ## 23 - Add Book Form Validation
  
-- [Book Form](https://pastebin.com/raw/ifp4JAMx)
+- [Book Form](https://pastebin.com/raw/G8502qBJ)
 
 ## 25 - Show Book page
 
