@@ -14,6 +14,7 @@
 {:else}
 	<BookForm {form} />
 {/if}
+
 <svelte:head>
 	<title>Book Lovers - Add Book</title>
 </svelte:head>
