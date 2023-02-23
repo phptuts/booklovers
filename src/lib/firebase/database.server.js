@@ -38,6 +38,29 @@ export async function addBook(book, userId) {
     return bookRef.id;
 }
 
+export async function editBook(id, form, userId) {
+    const bookRef = await db.collection('books').doc(id);
+    let mainPicture = form.main_picture || null;
+    let smallPicture = form.small_picture || null;
+    delete form.main_picture;
+    delete form.small_picture;
+    await bookRef.update(form);
+
+    if (mainPicture) {
+        const mainPictureUrl = await saveFileToBucket(mainPicture,
+            `${userId}/${bookRef.id}/main_picture`);
+
+        bookRef.update({ main_picture: mainPictureUrl })
+    }
+
+    if (smallPicture) {
+        const smallPictureUrl = await saveFileToBucket(smallPicture,
+            `${userId}/${bookRef.id}/small_picture`);
+
+        bookRef.update({ small_picture: smallPictureUrl })
+    }
+}
+
 export async function getBook(id) {
     const bookRef = await db.collection('books').doc(id).get();
 
