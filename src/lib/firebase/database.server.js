@@ -68,3 +68,34 @@ export async function getBook(id) {
         return { id: bookRef.id, ...bookRef.data() }
     }
 }
+
+export async function toggleBookLike(bookId, userId) {
+    const bookDoc = db.collection('books').doc(bookId);
+
+    const userDoc = db.collection('users').doc(userId);
+
+    const user = await userDoc.get();
+
+    const userData = user.data();
+
+    // unlike the book
+    if (userData.bookIds && userData.bookIds.includes(bookId)) {
+        await userDoc.update({
+            bookIds: firestore.FieldValue.arrayRemove(bookId)
+        });
+        await bookDoc.update({
+            likes: firestore.FieldValue.increment(-1)
+        });
+    }
+    // like the book
+    else {
+        await userDoc.update({
+            bookIds: firestore.FieldValue.arrayUnion(bookId)
+        });
+        await bookDoc.update({
+            likes: firestore.FieldValue.increment(1)
+        });
+    }
+
+    return await getBook(bookId);
+}
