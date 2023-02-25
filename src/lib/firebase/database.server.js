@@ -73,6 +73,8 @@ export async function getBook(id, userId = null) {
     }
 }
 
+
+
 export async function getUser(userId) {
     const user = await db.collection('users').doc(userId).get();
 
@@ -107,5 +109,5 @@ export async function toggleBookLike(bookId, userId) {
         });
     }
 
-    return await getBook(bookId);
+    return await getBook(bookId, userId);
 }
