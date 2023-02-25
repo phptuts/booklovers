@@ -1,11 +1,16 @@
 <script>
 	import messagesStore from '$lib/stores/messages.store';
+	import authStore from '$lib/stores/auth.store';
 
 	export let book;
 	export let textAlign = 'left';
 	let submitting = false;
 
 	async function toggleLike() {
+		if (!$authStore.isLoggedIn) {
+			return;
+		}
+
 		try {
 			submitting = true;
 			const response = await fetch(`/like/${book.id}`);
@@ -33,6 +38,7 @@
 			class="bi bi-arrow-through-heart-fill"
 			viewBox="0 0 16 16"
 			on:click={toggleLike}
+			class:not-logged-in={!$authStore.isLoggedIn}
 		>
 			<path
 				fill-rule="evenodd"
@@ -50,6 +56,7 @@
 			class="bi bi-arrow-through-heart"
 			viewBox="0 0 16 16"
 			on:click={toggleLike}
+			class:not-logged-in={!$authStore.isLoggedIn}
 		>
 			<path
 				fill-rule="evenodd"
@@ -71,5 +78,8 @@
 	}
 	.like span {
 		font-size: 20px;
+	}
+	.not-logged-in {
+		cursor: not-allowed;
 	}
 </style>
