@@ -73,7 +73,21 @@ export async function getBook(id, userId = null) {
     }
 }
 
+export async function getBooks(userId) {
 
+    const user = userId ? await getUser(userId) : null;
+
+    const books = await db.collection('books').limit(5).orderBy('created_at', 'desc').get();
+
+    const likedBooks = books.docs.map(d => {
+
+        const likedBook = user?.bookIds?.includes(d.id) || false;
+
+        return { ...d.data(), id: d.id, likedBook }
+    })
+
+    return likedBooks;
+}
 
 export async function getUser(userId) {
     const user = await db.collection('users').doc(userId).get();
