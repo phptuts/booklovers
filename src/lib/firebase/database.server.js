@@ -61,12 +61,22 @@ export async function editBook(id, form, userId) {
     }
 }
 
-export async function getBook(id) {
+export async function getBook(id, userId = null) {
     const bookRef = await db.collection('books').doc(id).get();
 
     if (bookRef.exists) {
-        return { id: bookRef.id, ...bookRef.data() }
+        const user = userId ? await getUser(userId) : null;
+        const likedBook = user?.bookIds?.includes(id) || false;
+
+
+        return { id: bookRef.id, ...bookRef.data(), likedBook }
     }
+}
+
+export async function getUser(userId) {
+    const user = await db.collection('users').doc(userId).get();
+
+    return user?.data();
 }
 
 export async function toggleBookLike(bookId, userId) {

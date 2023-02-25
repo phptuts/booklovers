@@ -1,4 +1,5 @@
 <script>
+	import Like from '$lib/components/Books/Like.svelte';
 	export let data;
 	let book = data.book;
 </script>
@@ -21,6 +22,11 @@
 <div class="row mt-3">
 	<div class="col">
 		<pre>{book.description}</pre>
+	</div>
+</div>
+<div class="row">
+	<div class="col">
+		<Like {book} />
 	</div>
 </div>
 
