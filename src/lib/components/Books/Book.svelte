@@ -1,10 +1,15 @@
 <script>
+	import { goto } from '$app/navigation';
 	import Like from './Like.svelte';
 	export let book;
+
+	function goToBookPage() {
+		goto(`/book/${book.id}`);
+	}
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="row mt-2">
+<div on:click={goToBookPage} class="row mt-2">
 	<div class="col col-12 col-sm-6 col-md-4">
 		<img src={book.small_picture} alt={book.title} />
 	</div>
