@@ -26,7 +26,7 @@
 </div>
 <div class="row">
 	<div class="col">
-		<Like {book} textAlign="left" />
+		<Like {book} textAlign="center" />
 	</div>
 </div>
 
