@@ -19,7 +19,7 @@
 		<p>
 			{book.short_description}
 		</p>
-		<Like {book} />
+		<Like {book} on:toggle_like />
 	</div>
 </div>
 
