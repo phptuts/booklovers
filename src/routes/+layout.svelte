@@ -12,7 +12,6 @@
 	let notifyBook;
 
 	const unsub = bookNotifyStore.subscribe((book) => {
-		console.log(notifyBook);
 		if (!$authStore.isLoggedIn) {
 			notifyBook = book;
 			return;
